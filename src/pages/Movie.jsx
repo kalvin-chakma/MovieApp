@@ -1,79 +1,55 @@
+import React, { useEffect, useState } from "react";
+import Cards from "../components/Cards";
 import axios from "../utils/Axios";
-import React, { useEffect, useState, useCallback } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Movie = () => {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
 
-  const fetchMovies = useCallback(async () => {
-    if (loading || !hasMore) return;
-
-    setLoading(true);
+  const fetchMovies = async () => {
     try {
       const { data } = await axios.get(`/movie/popular?page=${page}`);
-      setMovies((prev) => [...prev, ...data.results]);
-      setHasMore(data.page < data.total_pages);
+      console.log("api", data);
+
+      if (data.results?.length > 0) {
+        setMovies((prev) => [...prev, ...data.results]);
+        setPage((prev) => prev + 1);
+        setHasMore(page < data.total_pages);
+      } else {
+        setHasMore(false);
+      }
     } catch (error) {
       console.error("Error fetching movies:", error);
-    } finally {
-      setLoading(false);
+      setHasMore(false);
     }
-  }, [page, loading, hasMore]);
+  };
 
   useEffect(() => {
     fetchMovies();
-  }, [fetchMovies]);
-
-  const handleScroll = useCallback(() => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 100 >=
-        document.documentElement.scrollHeight &&
-      hasMore &&
-      !loading
-    ) {
-      setPage((prev) => prev + 1);
-    }
-  }, [hasMore, loading]);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+  }, [page]);
 
   return (
     <div className="min-h-screen bg-black pt-5">
-      <div className="lg:w-[70%] w-screen  mx-auto">
+      <div className="lg:w-[70%] w-screen mx-auto">
         <div className="text-2xl md:text-4xl font-semibold text-gray-500 px-4 md:px-6">
           Movies
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 text-white p-4">
-          {movies.map((movie) => (
-            <div
-              key={movie.id}
-              className="bg-gray-800 rounded shadow-md p-2 hover:scale-105 transition duration-200"
-            >
-              <div className="w-full aspect-[2/3] overflow-hidden rounded">
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h2 className="mt-2 text-base md:text-lg font-semibold line-clamp-2">
-                {movie.title}
-              </h2>
-              <p className="text-sm text-gray-400">{movie.release_date}</p>
-            </div>
-          ))}
-          {loading && <p className="col-span-full text-center">Loading...</p>}
-          {!hasMore && !loading && (
-            <p className="col-span-full text-center text-gray-400">
-              No more movies.
+
+        <InfiniteScroll
+          dataLength={movies.length}
+          next={fetchMovies}
+          hasMore={hasMore}
+          loader={<h4 className="text-white text-center py-4">Loading...</h4>}
+          endMessage={
+            <p className="text-white text-center py-4">
+              No more movies to load
             </p>
-          )}
-        </div>
+          }
+        >
+          <Cards data={movies} />
+        </InfiniteScroll>
       </div>
     </div>
   );
