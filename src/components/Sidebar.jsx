@@ -1,63 +1,47 @@
+// Sidebar.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   return (
-    <div className="bg-[#5865F2] w-[6%] h-screen flex flex-col items-center">
+    <div
+      className={`
+        bg-[#5865F2] h-screen flex flex-col items-center fixed lg:static top-0 left-0 z-50 
+        w-64 lg:w-[5%] transition-transform duration-300 
+        ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0
+      `}
+    >
+      {/* Close button for small screens */}
+      <div className="w-full flex justify-end lg:hidden p-4">
+        <button onClick={onClose} className="text-white text-2xl">
+          ✖
+        </button>
+      </div>
+
       <h1 className="text-white text-xl mt-2 mb-5 flex flex-col items-center">
         <i className="text-4xl ri-movie-fill"></i>
         <span className="text-xs font-semibold">MOVIES</span>
       </h1>
+
       <nav className="flex flex-col w-full">
-        <Link
-          to="/"
-          className="text-white text-xl flex flex-col items-center w-full py-2 hover:bg-black hover:text-white transition-colors"
-        >
-          <i className="ri-home-4-fill"></i>
-          <span className="text-xs font-semibold">Home</span>
-        </Link>
-        <Link
-          to="/movies"
-          className="text-white text-xl flex flex-col items-center w-full py-2 hover:bg-black hover:text-white transition-colors"
-        >
-          <i className="ri-clapperboard-fill"></i>
-          <span className="text-xs font-semibold">Movies</span>
-        </Link>
-        <Link
-          to="/path3"
-          className="text-white text-xl flex flex-col items-center w-full py-2 hover:bg-black hover:text-white transition-colors"
-        >
-          <i className="ri-movie-2-line"></i>
-          <span className="text-xs font-semibold">Series</span>
-        </Link>
-        <Link
-          to="/path4"
-          className="text-white text-xl flex flex-col items-center w-full py-2 hover:bg-black hover:text-white transition-colors"
-        >
-          <i className="ri-slideshow-3-fill"></i>
-          <span className="text-xs font-semibold">Cartoons</span>
-        </Link>
-        <Link
-          to="/path5"
-          className="text-white text-xl flex flex-col items-center w-full py-2 hover:bg-black hover:text-white transition-colors"
-        >
-          <i className="ri-tv-fill"></i>
-          <span className="text-xs font-semibold">TV+</span>
-        </Link>
-        <Link
-          to="/path6"
-          className="text-white text-xl flex flex-col items-center w-full py-2 hover:bg-black hover:text-white transition-colors"
-        >
-          <i className="ri-folder-4-fill"></i>
-          <span className="text-xs font-semibold">Category</span>
-        </Link>
-        <Link
-          to="/path7"
-          className="text-white text-xl flex flex-col items-center w-full py-2 hover:bg-black hover:text-white transition-colors"
-        >
-          <i className="ri-star-fill"></i>
-          <span className="text-xs font-semibold">Popular</span>
-        </Link>
+        {[
+          { to: "/", icon: "ri-home-4-fill", label: "Home" },
+          { to: "/movies", icon: "ri-clapperboard-fill", label: "Movies" },
+          { to: "/path3", icon: "ri-movie-2-line", label: "Series" },
+          { to: "/path4", icon: "ri-slideshow-3-fill", label: "Cartoons" },
+          { to: "/path5", icon: "ri-tv-fill", label: "TV+" },
+          { to: "/path6", icon: "ri-folder-4-fill", label: "Category" },
+          { to: "/path7", icon: "ri-star-fill", label: "Popular" },
+        ].map(({ to, icon, label }) => (
+          <Link
+            key={label}
+            to={to}
+            className="text-white text-xl flex flex-col items-center w-full py-2 hover:bg-black hover:text-white transition-colors"
+          >
+            <i className={icon}></i>
+            <span className="text-xs font-semibold">{label}</span>
+          </Link>
+        ))}
       </nav>
     </div>
   );

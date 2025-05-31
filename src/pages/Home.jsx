@@ -18,6 +18,8 @@ const Home = () => {
     topRated: [],
   });
 
+  const [sidebarOpen, setSidebarOpen] = useState(false); // <-- For mobile drawer
+
   const categoryConfigs = [
     { key: "trending", url: "/trending/all/day", title: "Trending" },
     { key: "upcoming", url: "/movie/upcoming", title: "Upcoming" },
@@ -61,19 +63,27 @@ const Home = () => {
 
   return (
     <>
-      <Sidebar />
-      <div className="w-[95%] h-full text-white overflow-auto no-scrollbar relative pb-10">
-        <Topbar />
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <>
-            <Header data={[headerPoster]} />
-            {categoryConfigs.map(({ key, title }) => (
-              <HorizontalCard key={key} title={title} data={categories[key]} />
-            ))}
-          </>
-        )}
+      <div className="flex flex-col lg:flex-row h-screen w-full">
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+
+        <div className="flex-1 h-full text-white overflow-auto no-scrollbar relative pb-10">
+          <Topbar />
+
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <>
+              <Header data={[headerPoster]} />
+              {categoryConfigs.map(({ key, title }) => (
+                <HorizontalCard
+                  key={key}
+                  title={title}
+                  data={categories[key]}
+                />
+              ))}
+            </>
+          )}
+        </div>
       </div>
     </>
   );

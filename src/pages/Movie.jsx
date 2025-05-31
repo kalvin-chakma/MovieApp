@@ -43,20 +43,27 @@ const Movie = () => {
   }, [handleScroll]);
 
   return (
-    <div className="min-h-screen bg-black no-scrollbar">
-      <div className="w-[70%] mx-auto">
+    <div className="min-h-screen bg-black pt-5">
+      <div className="lg:w-[70%] w-screen  mx-auto">
+        <div className="text-2xl md:text-4xl font-semibold text-gray-500 px-4 md:px-6">
+          Movies
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 text-white p-4">
           {movies.map((movie) => (
             <div
               key={movie.id}
               className="bg-gray-800 rounded shadow-md p-2 hover:scale-105 transition duration-200"
             >
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                className="w-full h-auto rounded"
-              />
-              <h2 className="mt-2 text-lg font-semibold">{movie.title}</h2>
+              <div className="w-full aspect-[2/3] overflow-hidden rounded">
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h2 className="mt-2 text-base md:text-lg font-semibold line-clamp-2">
+                {movie.title}
+              </h2>
               <p className="text-sm text-gray-400">{movie.release_date}</p>
             </div>
           ))}
@@ -71,4 +78,5 @@ const Movie = () => {
     </div>
   );
 };
+
 export default Movie;
