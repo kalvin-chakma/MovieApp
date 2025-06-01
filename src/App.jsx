@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Movie from "./pages/Movie";
 import TVshows from "./pages/TVshows";
 import Details from "./pages/Details";
+import Trending from "./pages/Trending";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movie />} />
         <Route path="/tvshows" element={<TVshows />} />
+        <Route path="/trending" element={<Trending />} />
         <Route path="/:type/:id" element={<Details />} />
       </Routes>
     </div>

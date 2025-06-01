@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { data, Link } from "react-router-dom";
 
 const Cards = ({ data, media_type }) => {
   return (
@@ -7,7 +7,7 @@ const Cards = ({ data, media_type }) => {
       {data.map((d, i) => (
         <Link
           key={i}
-          to={`/${media_type}/${d.id}`}
+          to={`/${media_type || d.media_type}/${d.id}`}
           className="bg-black rounded shadow-md hover:scale-105 transition duration-200"
         >
           <div className="w-full aspect-[2/3] overflow-hidden rounded">

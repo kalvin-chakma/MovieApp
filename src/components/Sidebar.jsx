@@ -28,10 +28,10 @@ const Sidebar = ({ isOpen, onClose }) => {
           { to: "/", icon: "ri-home-4-fill", label: "Home" },
           { to: "/movies", icon: "ri-clapperboard-fill", label: "Movies" },
           { to: "/tvshows", icon: "ri-tv-fill", label: "TV+" },
-          { to: "/path3", icon: "ri-movie-2-line", label: "Series" },
-          { to: "/path4", icon: "ri-slideshow-3-fill", label: "Cartoons" },
-          { to: "/path6", icon: "ri-folder-4-fill", label: "Category" },
-          { to: "/path7", icon: "ri-star-fill", label: "Popular" },
+          { to: "/trending", icon: "ri-fire-fill", label: "Trending" },
+          { to: "/path4", icon: "ri-bard-fill", label: "Popular" },
+          { to: "/path3", icon: "ri-sparkling-2-fill", label: "Top Rated" },
+          { to: "/path7", icon: "ri-team-fill", label: "People" },
         ].map(({ to, icon, label }) => (
           <Link
             key={label}
