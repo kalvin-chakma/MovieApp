@@ -12,6 +12,7 @@ const HorizontalCard = ({ title, data }) => {
           {data.map((d, i) => (
             <Link
               key={i}
+              to={`/${d.media_type}/${d.id}`}
               className="min-w-[35%] sm:min-w-[35%] md:min-w-[10%] h-[20vh] md:h-[30vh] relative rounded-md overflow-hidden"
             >
               <img

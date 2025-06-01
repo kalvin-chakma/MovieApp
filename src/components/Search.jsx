@@ -45,7 +45,7 @@ const Search = () => {
         <div className="bg-zinc-900 max-h-[50vh] w-full absolute top-[100%] overflow-auto no-scrollbar z-20">
           {searches.map((s, i) => (
             <Link
-              to={`/details/${s.id}`}
+              to={`/${s.media_type}/${s.id}`}
               key={i}
               className="w-full bg-zinc-900 p-4 flex items-center border-b border-zinc-600 hover:bg-zinc-950 hover:text-zinc-300"
             >

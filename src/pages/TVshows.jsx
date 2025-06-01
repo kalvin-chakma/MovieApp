@@ -50,7 +50,7 @@ const TVshows = () => {
             </p>
           }
         >
-          <Cards data={tvshows} />
+          <Cards data={tvshows} media_type={"tv"} />
         </InfiniteScroll>
       </div>
     </div>
