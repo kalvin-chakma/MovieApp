@@ -3,7 +3,7 @@ import React from "react";
 const Cards = ({ data }) => {
   console.log(data);
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 text-white p-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 text-white p-4">
       {data.map((d, i) => (
         <div
           key={i}
@@ -18,9 +18,11 @@ const Cards = ({ data }) => {
           </div>
           <div className="py-2">
             <h2 className=" text-sm lg:text-sm md:text-lg font-semibold line-clamp-1">
-              {d.title}
+              {d.title || d.name || d.original_name}
             </h2>
-            <p className="text-xs text-gray-400">{d.release_date}</p>
+            <p className="text-xs text-gray-400">
+              {d.release_date || d.first_air_date}
+            </p>
           </div>
         </div>
       ))}

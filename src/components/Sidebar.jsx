@@ -27,9 +27,9 @@ const Sidebar = ({ isOpen, onClose }) => {
         {[
           { to: "/", icon: "ri-home-4-fill", label: "Home" },
           { to: "/movies", icon: "ri-clapperboard-fill", label: "Movies" },
+          { to: "/tvshows", icon: "ri-tv-fill", label: "TV+" },
           { to: "/path3", icon: "ri-movie-2-line", label: "Series" },
           { to: "/path4", icon: "ri-slideshow-3-fill", label: "Cartoons" },
-          { to: "/path5", icon: "ri-tv-fill", label: "TV+" },
           { to: "/path6", icon: "ri-folder-4-fill", label: "Category" },
           { to: "/path7", icon: "ri-star-fill", label: "Popular" },
         ].map(({ to, icon, label }) => (
