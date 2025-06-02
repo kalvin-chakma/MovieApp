@@ -7,7 +7,7 @@ import Header from "../components/Header.jsx";
 import Topbar from "../components/Topbar.jsx";
 
 const Home = () => {
-  document.title = "MOVIES | Home";
+  document.title = "Home";
 
   const [headerPoster, setHeaderPoster] = useState(null);
   const [isLoading, setIsLoading] = useState(true);

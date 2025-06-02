@@ -4,6 +4,7 @@ import Loader from "../components/Loader";
 import { useParams } from "react-router-dom";
 
 const Details = () => {
+  document.title = "Details";
   const { type, id } = useParams();
   const [data, setData] = useState(null);
 

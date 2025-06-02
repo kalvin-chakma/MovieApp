@@ -5,13 +5,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { data } from "react-router-dom";
 
 const Movie = () => {
+  document.title = "Movie";
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMovies = async () => {
     try {
-      const { data } = await axios.get(`/movie/popular?page=${page}`);
+      const { data } = await axios.get(`/movie/now_playing?page=${page}`);
       console.log("api", data);
 
       if (data.results?.length > 0) {
@@ -48,7 +49,7 @@ const Movie = () => {
           dataLength={movies.length}
           next={fetchMovies}
           hasMore={hasMore}
-          loader={<h4 className="text-white text-center py-4">Loading...</h4>}
+          loader={<h4 className="text-white text-center py-4"></h4>}
           endMessage={
             <p className="text-white text-center py-4">
               No more movies to load

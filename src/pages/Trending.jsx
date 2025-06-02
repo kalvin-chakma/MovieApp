@@ -4,6 +4,7 @@ import axios from "../utils/Axios";
 import Loader from "../components/Loader";
 
 const Trending = () => {
+  document.title = "Trending";
   const [movies, setMovies] = useState([]);
   const [category, setCategory] = useState("all");
   const [loading, setLoading] = useState(true);

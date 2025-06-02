@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
+import Cards from "../components/Cards";
 import axios from "../utils/Axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Cards from "../components/Cards";
+import { data } from "react-router-dom";
 
-const TVshows = () => {
-  document.title = "TV Shows";
-  const [tvshows, setTvshows] = useState([]);
+const Popular = () => {
+  document.title = "Popular";
+  const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  const fetchTvshows = async () => {
+  const fetchMovies = async () => {
     try {
-      const { data } = await axios.get(
-        `tv/airing_today?language=en-US&page=${page}`
-      );
+      const { data } = await axios.get(`/movie/popular?page=${page}`);
       console.log("api", data);
 
       if (data.results?.length > 0) {
-        setTvshows((prev) => [...prev, ...data.results]);
+        setMovies((prev) => [...prev, ...data.results]);
         setPage((prev) => prev + 1);
         setHasMore(page < data.total_pages);
       } else {
@@ -30,32 +29,38 @@ const TVshows = () => {
   };
 
   useEffect(() => {
-    fetchTvshows();
+    fetchMovies();
   }, [page]);
+  if (!data)
+    return (
+      <div className="text-white p-5">
+        <Loader />
+      </div>
+    );
 
   return (
     <div className="min-h-screen w-screen bg-black pt-5">
       <div className="lg:w-[70%] w-screen mx-auto">
         <div className="text-2xl md:text-4xl font-semibold text-gray-500 px-4 md:px-6">
-          TV Shows
+          Popular
         </div>
 
         <InfiniteScroll
-          dataLength={tvshows.length}
-          next={fetchTvshows}
+          dataLength={movies.length}
+          next={fetchMovies}
           hasMore={hasMore}
-          loader={<h4 className="text-white text-center py-4">Loading...</h4>}
+          loader={<h4 className="text-white text-center py-4"></h4>}
           endMessage={
             <p className="text-white text-center py-4">
               No more movies to load
             </p>
           }
         >
-          <Cards data={tvshows} media_type={"tv"} />
+          <Cards data={movies} media_type={"movie"} />
         </InfiniteScroll>
       </div>
     </div>
   );
 };
 
-export default TVshows;
+export default Popular;
