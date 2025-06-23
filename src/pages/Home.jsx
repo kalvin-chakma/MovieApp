@@ -75,11 +75,13 @@ const Home = () => {
             <>
               <Header data={[headerPoster]} />
               {categoryConfigs.map(({ key, title }) => (
-                <HorizontalCard
-                  key={key}
-                  title={title}
-                  data={categories[key]}
-                />
+                <div className="mx-4 sm:mx-6">
+                  <HorizontalCard
+                    key={key}
+                    title={title}
+                    data={categories[key]}
+                  />
+                </div>
               ))}
             </>
           )}
