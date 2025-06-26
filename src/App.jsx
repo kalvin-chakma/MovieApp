@@ -6,6 +6,7 @@ import Details from "./pages/Details";
 import Trending from "./pages/Trending";
 import Popular from "./pages/Popular";
 import TopRated from "./pages/TopRated";
+import People from "./pages/People";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/trending" element={<Trending />} />
         <Route path="/popular" element={<Popular />} />
         <Route path="/top-rated" element={<TopRated />} />
+        <Route path="/people" element={<People />} />
         <Route path="/:type/:id" element={<Details />} />
       </Routes>
     </div>

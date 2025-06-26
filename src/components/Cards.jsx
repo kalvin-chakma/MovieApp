@@ -12,7 +12,9 @@ const Cards = ({ data, media_type }) => {
         >
           <div className="w-full aspect-[2/3] overflow-hidden rounded">
             <img
-              src={`https://image.tmdb.org/t/p/w500${d.poster_path}`}
+              src={`https://image.tmdb.org/t/p/w500${
+                d.poster_path || d.profile_path
+              }`}
               alt={d.title || d.name || "Media Poster"}
               className="w-full h-full object-cover"
             />

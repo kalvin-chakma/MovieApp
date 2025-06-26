@@ -3,6 +3,7 @@ import Cards from "../components/Cards";
 import axios from "../utils/Axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { data } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Popular = () => {
   document.title = "Popular";

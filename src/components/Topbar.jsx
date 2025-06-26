@@ -10,8 +10,8 @@ const Topbar = () => {
         </button>
         <h1 className="text-3xl font-bold lg:mr-10 mr-3">MOVIES</h1>
         <div className="flex w-full lg:gap-7 items-center">
-          <h1 className="font-bold hidden sm:inline-block">Latest</h1>
-          <h1 className="font-bold hidden sm:inline-block">Trending</h1>
+          {/* <h1 className="font-bold hidden sm:inline-block">Latest</h1>
+          <h1 className="font-bold hidden sm:inline-block">Trending</h1> */}
           <Search />
         </div>
         <div className="text-3xl flex items-center">

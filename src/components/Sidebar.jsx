@@ -31,7 +31,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           { to: "/trending", icon: "ri-fire-fill", label: "Trending" },
           { to: "/popular", icon: "ri-bard-fill", label: "Popular" },
           { to: "/top-rated", icon: "ri-sparkling-2-fill", label: "Top Rated" },
-          { to: "/path7", icon: "ri-team-fill", label: "People" },
+          { to: "/people", icon: "ri-team-fill", label: "People" },
         ].map(({ to, icon, label }) => (
           <Link
             key={label}
