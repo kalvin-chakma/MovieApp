@@ -1,65 +1,58 @@
 import React, { useEffect, useState } from "react";
 import Cards from "../components/Cards";
 import axios from "../utils/Axios";
+import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "../components/Loader";
 
 const Trending = () => {
   document.title = "Trending";
+
   const [movies, setMovies] = useState([]);
-  const [category, setCategory] = useState("all");
-  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   const fetchTrending = async () => {
-    setLoading(true);
     try {
-      const response = await axios.get(
-        `/trending/${category}/day?language=en-US`
-      );
-      console.log("API Response:", response.data);
+      const { data } = await axios.get(`/movie/trending?page=${page}`);
+      console.log("API Response:", data);
 
-      if (response.data?.results) {
-        setMovies(response.data.results);
+      if (data.results?.length > 0) {
+        setMovies((prev) => [...prev, ...data.results]);
+        setPage((prev) => prev + 1);
+        setHasMore(page < data.total_pages);
       } else {
-        setMovies([]);
+        setHasMore(false);
       }
     } catch (error) {
       console.error("Error fetching movies:", error);
-      setMovies([]);
-    } finally {
-      setLoading(false);
+      setHasMore(false);
     }
   };
 
   useEffect(() => {
     fetchTrending();
-  }, [category]);
-  if (!data)
-    return (
-      <div className="text-white p-5">
-        <Loader />
-      </div>
-    );
+  }, []);
+
   return (
     <div className="min-h-screen w-screen bg-black pt-5">
       <div className="lg:w-[70%] w-screen mx-auto">
-        <div className="flex justify-between items-center mb-4 px-4">
-          <div className="text-2xl md:text-4xl font-semibold text-gray-500">
-            Trending - {category.charAt(0).toUpperCase() + category.slice(1)}
-          </div>
-          <div>
-            <select
-              className="bg-gray-800 text-white text-sm p-1 rounded"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="all">All</option>
-              <option value="movie">Movie</option>
-              <option value="tv">TV</option>
-            </select>
-          </div>
+        <div className="text-2xl md:text-4xl font-semibold text-gray-500 px-4 mb-4">
+          Trending
         </div>
 
-        {loading ? <Loader /> : <Cards data={movies} />}
+        <InfiniteScroll
+          dataLength={movies.length}
+          next={fetchTrending}
+          hasMore={hasMore}
+          loader={<Loader />}
+          endMessage={
+            <p className="text-white text-center py-4">
+              No more trending content to load
+            </p>
+          }
+        >
+          <Cards data={movies} />
+        </InfiniteScroll>
       </div>
     </div>
   );

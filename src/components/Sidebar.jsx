@@ -20,15 +20,15 @@ const Sidebar = ({ isOpen, onClose }) => {
 
       <h1 className="text-white text-xl mt-2 mb-5 flex flex-col items-center">
         <i className="text-4xl ri-movie-fill"></i>
-        <span className="text-xs font-semibold">MOVIES</span>
+        <span className="text-xs font-semibold">MovieApp</span>
       </h1>
 
       <nav className="flex flex-col w-full">
         {[
           { to: "/", icon: "ri-home-4-fill", label: "Home" },
           { to: "/movies", icon: "ri-clapperboard-fill", label: "Movies" },
-          { to: "/tvshows", icon: "ri-tv-fill", label: "TV+" },
-          { to: "/trending", icon: "ri-fire-fill", label: "Trending" },
+          /* { to: "/tvshows", icon: "ri-tv-fill", label: "TV+" }, */
+          /* { to: "/trending", icon: "ri-fire-fill", label: "Trending" }, */
           { to: "/popular", icon: "ri-bard-fill", label: "Popular" },
           { to: "/top-rated", icon: "ri-sparkling-2-fill", label: "Top Rated" },
           { to: "/people", icon: "ri-team-fill", label: "People" },

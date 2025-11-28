@@ -18,7 +18,7 @@ const Home = () => {
     topRated: [],
   });
 
-  const [sidebarOpen, setSidebarOpen] = useState(false); // <-- For mobile drawer
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const categoryConfigs = [
     { key: "trending", url: "/trending/all/day", title: "Trending" },
