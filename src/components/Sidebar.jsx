@@ -1,4 +1,3 @@
-// Sidebar.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -11,17 +10,19 @@ const Sidebar = ({ isOpen, onClose }) => {
         ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0
       `}
     >
-      {/* Close button for small screens */}
-      <div className="w-full flex justify-end lg:hidden p-4">
+      <div className="w-full flex justify-end lg:hidden">
         <button onClick={onClose} className="text-white text-2xl">
-          ✖
+          <i class="ri-close-line"></i>
         </button>
       </div>
-
       <h1 className="text-white text-xl mt-2 mb-5 flex flex-col items-center">
         <i className="text-4xl ri-movie-fill"></i>
         <span className="text-xs font-semibold">MovieApp</span>
       </h1>
+
+      {/* <div className="w-full px-4 mb-4 lg:hidden">
+        <Search className="w-full" />
+      </div> */}
 
       <nav className="flex flex-col w-full">
         {[

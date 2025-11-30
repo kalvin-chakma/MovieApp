@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import Cards from "../components/Cards";
 import axios from "../utils/Axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { data } from "react-router-dom";
 import Loader from "../components/Loader";
 import GenreFilter from "../utils/GenreFilter";
+import PageHeader from "../components/PageHeader";
 
 const Movie = () => {
   document.title = "Movie";
+
+  const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -20,7 +22,6 @@ const Movie = () => {
 
       if (data.results?.length > 0) {
         setMovies((prev) => [...prev, ...data.results]);
-        setPage((prev) => prev + 1);
         setHasMore(page < data.total_pages);
       } else {
         setHasMore(false);
@@ -32,61 +33,61 @@ const Movie = () => {
   };
 
   useEffect(() => {
-    fetchMovies();
+    const delay = setTimeout(() => {
+      fetchMovies().then(() => setLoading(false));
+    }, 1500);
+
+    return () => clearTimeout(delay);
+  }, []);
+
+  const loadMore = () => setPage((prev) => prev + 1);
+
+  useEffect(() => {
+    if (page !== 1) fetchMovies();
   }, [page]);
 
-  // Filter movies by genre
   const getFilteredMovies = () => {
     if (!selectedGenre) return movies;
     return movies.filter((movie) => movie.genre_ids?.includes(selectedGenre));
   };
 
-  if (!data)
-    return (
-      <div className="text-white p-5">
-        <Loader />
-      </div>
-    );
-
   return (
     <div className="min-h-screen w-screen bg-gradient-to-b from-zinc-900 via-black to-black">
       <div className="lg:w-[85%] xl:w-[80%] w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className=" flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <button
-              className="text-zinc-400 hover:text-white transition-colors duration-200"
-              onClick={() => window.history.back()}
-            >
-              <i class="ri-arrow-left-long-line text-2xl"></i>
-            </button>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
-              Movies
-            </h1>
+        <PageHeader
+          title="Movies"
+          showBack={true}
+          rightContent={
+            <GenreFilter
+              selectedGenre={selectedGenre}
+              onGenreChange={setSelectedGenre}
+            />
+          }
+        />
+
+        {loading ? (
+          <div className="text-white p-5">
+            <Loader />
           </div>
-
-          <GenreFilter
-            selectedGenre={selectedGenre}
-            onGenreChange={setSelectedGenre}
-          />
-        </div>
-
-        <InfiniteScroll
-          dataLength={movies.length}
-          next={fetchMovies}
-          hasMore={hasMore}
-          loader={
-            <div className="flex justify-center py-8">
-              <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
-            </div>
-          }
-          endMessage={
-            <p className="text-zinc-500 text-center py-8 text-sm">
-              You've reached the end
-            </p>
-          }
-        >
-          <Cards data={getFilteredMovies()} media_type={"movie"} />
-        </InfiniteScroll>
+        ) : (
+          <InfiniteScroll
+            dataLength={movies.length}
+            next={loadMore}
+            hasMore={hasMore}
+            loader={
+              <div className="flex justify-center py-8">
+                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+              </div>
+            }
+            endMessage={
+              <p className="text-zinc-500 text-center py-8 text-sm">
+                You've reached the end
+              </p>
+            }
+          >
+            <Cards data={getFilteredMovies()} media_type="movie" />
+          </InfiniteScroll>
+        )}
       </div>
     </div>
   );

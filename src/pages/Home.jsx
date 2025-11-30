@@ -67,7 +67,7 @@ const Home = () => {
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
         <div className="flex-1 h-full text-white overflow-auto no-scrollbar relative pb-10">
-          <Topbar />
+          <Topbar setSidebarOpen={setSidebarOpen} />
 
           {isLoading ? (
             <Loader />

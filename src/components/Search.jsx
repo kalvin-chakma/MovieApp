@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "../utils/Axios";
 import noImage from "../assets/no-image.jpg";
 
-const Search = () => {
+const Search = ({ className = "" }) => {
   const [query, setQuery] = useState("");
   const [searches, setSearches] = useState([]);
 
@@ -21,7 +21,7 @@ const Search = () => {
   }, [query]);
 
   return (
-    <div className="flex items-center w-[50%] justify-center relative">
+    <div className={`flex items-center w-[50%] justify-center relative ${className}`}>
       <div className="flex items-center rounded-lg shadow-md bg-zinc-950 w-full">
         <input
           value={query}

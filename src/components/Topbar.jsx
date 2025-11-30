@@ -1,7 +1,7 @@
 import React from "react";
 import Search from "./Search";
 
-const Topbar = () => {
+const Topbar = ({ setSidebarOpen }) => {
   return (
     <div className="h-[8%] w-full py-2 px-3 lg:px-10  flex items-center bg-[#191919] lg:absolute top-0 left-0 right-0 z-10">
       <div className="flex flex-row  items-center w-full">
@@ -10,9 +10,9 @@ const Topbar = () => {
         </button>
         <h1 className="text-3xl font-bold lg:mr-10 mr-3">MovieApp</h1>
         <div className="flex w-full lg:gap-7 items-center">
-          {/* <h1 className="font-bold hidden sm:inline-block">Latest</h1>
-          <h1 className="font-bold hidden sm:inline-block">Trending</h1> */}
-          <Search />
+          <div className="hidden sm:flex w-full">
+            <Search />
+          </div>
         </div>
         <div className="text-3xl flex items-center">
           <i className="ri-account-circle-fill"></i>
