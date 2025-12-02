@@ -23,12 +23,14 @@ const TopRated = () => {
       if (data.results?.length > 0) {
         setMovies((prev) => [...prev, ...data.results]);
         setHasMore(page < data.total_pages);
+        setPage((prev) => prev + 1);
       } else {
         setHasMore(false);
       }
     } catch (error) {
       console.error("Error fetching top rated movies:", error);
       setHasMore(false);
+      setLoading(false);
     }
   };
 
@@ -36,11 +38,14 @@ const TopRated = () => {
     fetchMovies().then(() => setLoading(false));
   }, []);
 
-  const loadMore = () => setPage((prev) => prev + 1);
-
   useEffect(() => {
     if (page !== 1) fetchMovies();
   }, [page]);
+
+  const getFilteredMovies = () => {
+    if (!selectedGenre) return movies;
+    return movies.filter((movie) => movie.genre_ids?.includes(selectedGenre));
+  };
 
   return (
     <div className="min-h-screen w-screen bg-black">
@@ -63,7 +68,7 @@ const TopRated = () => {
         ) : (
           <InfiniteScroll
             dataLength={movies.length}
-            next={loadMore}
+            next={fetchMovies}
             hasMore={hasMore}
             loader={
               <div className="flex justify-center py-8">
@@ -76,7 +81,7 @@ const TopRated = () => {
               </p>
             }
           >
-            <Cards data={movies} media_type="movie" />
+            <Cards data={getFilteredMovies()} media_type="movie" />
           </InfiniteScroll>
         )}
       </div>

@@ -23,24 +23,20 @@ const Movie = () => {
       if (data.results?.length > 0) {
         setMovies((prev) => [...prev, ...data.results]);
         setHasMore(page < data.total_pages);
+        setPage((prev) => prev + 1);
       } else {
         setHasMore(false);
       }
     } catch (error) {
       console.error("Error fetching movies:", error);
       setHasMore(false);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    const delay = setTimeout(() => {
-      fetchMovies().then(() => setLoading(false));
-    }, 1500);
-
-    return () => clearTimeout(delay);
+    fetchMovies().then(() => setLoading(false));
   }, []);
-
-  const loadMore = () => setPage((prev) => prev + 1);
 
   useEffect(() => {
     if (page !== 1) fetchMovies();
@@ -72,7 +68,7 @@ const Movie = () => {
         ) : (
           <InfiniteScroll
             dataLength={movies.length}
-            next={loadMore}
+            next={fetchMovies}
             hasMore={hasMore}
             loader={
               <div className="flex justify-center py-8">

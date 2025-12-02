@@ -7,6 +7,7 @@ import Trending from "./pages/Trending";
 import Popular from "./pages/Popular";
 import TopRated from "./pages/TopRated";
 import People from "./pages/People";
+import SinglePerson from "./pages/SinglePerson";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/top-rated" element={<TopRated />} />
         <Route path="/people" element={<People />} />
         <Route path="/:type/:id" element={<Details />} />
+        <Route path="/person/:id" element={<SinglePerson />} />
       </Routes>
     </div>
   );

@@ -23,12 +23,14 @@ const Popular = () => {
       if (data.results?.length > 0) {
         setMovies((prev) => [...prev, ...data.results]);
         setHasMore(page < data.total_pages);
+        setPage((prev) => prev + 1);
       } else {
         setHasMore(false);
       }
     } catch (error) {
       console.error("Error fetching popular movies:", error);
       setHasMore(false);
+      setLoading(false);
     }
   };
 
@@ -36,15 +38,18 @@ const Popular = () => {
     fetchMovies().then(() => setLoading(false));
   }, []);
 
-  const loadMore = () => setPage((prev) => prev + 1);
-
   useEffect(() => {
     if (page !== 1) fetchMovies();
   }, [page]);
 
+  const getFilteredMovies = () => {
+    if (!selectedGenre) return movies;
+    return movies.filter((movie) => movie.genre_ids?.includes(selectedGenre));
+  };
+
   return (
-    <div className="min-h-screen w-screen bg-black">
-      <div className="lg:w-[70%] w-full mx-auto px-4 md:px-6 py-5">
+    <div className="min-h-screen w-screen bg-gradient-to-b from-zinc-900 via-black to-black">
+      <div className="lg:w-[85%] xl:w-[80%] w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <PageHeader
           title="Popular Movies"
           showBack={true}
@@ -63,7 +68,7 @@ const Popular = () => {
         ) : (
           <InfiniteScroll
             dataLength={movies.length}
-            next={loadMore}
+            next={fetchMovies}
             hasMore={hasMore}
             loader={
               <div className="flex justify-center py-8">
@@ -71,12 +76,12 @@ const Popular = () => {
               </div>
             }
             endMessage={
-              <p className="text-white text-center py-4">
-                No more movies to load
+              <p className="text-zinc-500 text-center py-8 text-sm">
+                You've reached the end
               </p>
             }
           >
-            <Cards data={movies} media_type="movie" />
+            <Cards data={getFilteredMovies()} media_type="movie" />
           </InfiniteScroll>
         )}
       </div>

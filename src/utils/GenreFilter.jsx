@@ -66,10 +66,8 @@ const GenreFilter = ({ selectedGenre, onGenreChange }) => {
               All Genres
             </button>
 
-            {/* Divider */}
             <div className="my-1 border-t border-zinc-700 not-scrollbar" />
 
-            {/* Genre Options */}
             {GENRES.map((genre) => (
               <button
                 key={genre.id}
