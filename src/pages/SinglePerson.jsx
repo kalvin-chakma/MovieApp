@@ -71,7 +71,7 @@ const SinglePerson = () => {
     );
 
   return (
-    <div className="h-screen w-screen relative bg-black overflow-y-auto no-scrollbar">
+    <div className="h-screen w-full relative bg-black overflow-y-auto no-scrollbar">
       {data.profile_path ? (
         <>
           <img
@@ -186,8 +186,8 @@ const SinglePerson = () => {
         </div>
 
         {showBioModal && (
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
-            <div className="bg-zinc-900 p-6 rounded-xl max-w-xl w-full border border-zinc-700 text-white shadow-xl">
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-zinc-900 p-6 rounded-xl max-w-xl w-full max-h-[85vh] overflow-y-auto border border-zinc-700 text-white shadow-xl">
               <h2 className="text-2xl font-bold mb-4">Full Biography</h2>
 
               <p className="text-gray-300 leading-relaxed max-h-[60vh] overflow-y-auto pr-2">

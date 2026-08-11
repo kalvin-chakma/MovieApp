@@ -2,11 +2,11 @@ import React from "react";
 
 const Header = ({ data }) => {
   return (
-    <div className="w-full lg:h-[55vh] flex overflow-hidden">
+    <div className="w-full h-[45vh] sm:h-[50vh] lg:h-[55vh] flex overflow-hidden">
       {data.map((d, i) => (
-        <div key={i} className="w-full relative overflow-hidden flex-shrink-0 ">
+        <div key={i} className="w-full h-full relative overflow-hidden flex-shrink-0 ">
           <img
-            className="lg:w-full object-cover"
+            className="w-full h-full object-cover"
             src={`https://image.tmdb.org/t/p/original${
               d.backdrop_path || d.poster_path
             }`}

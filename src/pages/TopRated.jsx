@@ -48,7 +48,7 @@ const TopRated = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-black">
+    <div className="min-h-screen w-full bg-black">
       <div className="lg:w-[70%] w-full mx-auto px-4 md:px-6 py-5">
         <PageHeader
           title="Top Rated"

@@ -48,7 +48,7 @@ const Popular = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-gradient-to-b from-zinc-900 via-black to-black">
+    <div className="min-h-screen w-full bg-gradient-to-b from-zinc-900 via-black to-black">
       <div className="lg:w-[85%] xl:w-[80%] w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <PageHeader
           title="Popular Movies"

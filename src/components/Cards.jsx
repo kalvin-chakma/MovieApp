@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import RatingBadge from "./RatingBadge";
 
 const Cards = ({ data, media_type }) => {
   return (
@@ -10,13 +11,17 @@ const Cards = ({ data, media_type }) => {
           to={`/${media_type || d.media_type}/${d.id}`}
           className="bg-black rounded shadow-md hover:scale-105 transition duration-200"
         >
-          <div className="w-full aspect-[2/3] overflow-hidden rounded">
+          <div className="relative w-full aspect-[2/3] overflow-hidden rounded">
             <img
               src={`https://image.tmdb.org/t/p/w500${
                 d.poster_path || d.profile_path
               }`}
               alt={d.title || d.name || "Media Poster"}
               className="w-full h-full object-cover"
+            />
+            <RatingBadge
+              rating={d.vote_average}
+              className="absolute top-1.5 right-1.5"
             />
           </div>
           <div className="py-2">

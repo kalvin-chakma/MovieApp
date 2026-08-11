@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import noImage from "../assets/no-image.jpg";
+import RatingBadge from "./RatingBadge";
 
 const HorizontalCard = ({ title, data }) => {
   return (
@@ -15,7 +16,7 @@ const HorizontalCard = ({ title, data }) => {
             <Link
               key={i}
               to={`/${d.media_type || "movie"}/${d.id}`}
-              className="min-w-[50vw] sm:min-w-[30vw] md:min-w-[25vw] lg:min-w-[10vw] h-[34vw] sm:h-[26vw] md:h-[20vw] lg:h-[18vw] max-h-[250px] relative rounded-md overflow-hidden transition-transform duration-300 hover:scale-105"
+              className="min-w-[35vw] md:min-w-[15vw] lg:min-w-[10vw] h-[50vw] md:h-[25vw] lg:h-[18vw]  relative rounded-md overflow-hidden transition-transform duration-300 hover:scale-105"
             >
               <img
                 className="w-full h-full object-cover"
@@ -28,6 +29,10 @@ const HorizontalCard = ({ title, data }) => {
                 }
                 alt={d.title || d.name || "Media"}
                 loading="lazy"
+              />
+              <RatingBadge
+                rating={d.vote_average}
+                className="absolute top-1.5 right-1.5"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
                 <h1 className="text-white text-sm sm:text-xs lg:text-sm font-semibold truncate absolute bottom-7 left-3 right-3">

@@ -43,14 +43,14 @@ const GenreFilter = ({ selectedGenre, onGenreChange }) => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2.5 rounded-lg border border-zinc-700 transition-all duration-200 shadow-lg hover:shadow-xl min-w-[140px] justify-between"
+        className="flex items-center gap-1.5 bg-zinc-800 hover:bg-zinc-700 text-white px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-700 transition-all duration-200 shadow-lg hover:shadow-xl min-w-[110px] sm:min-w-[130px] justify-between"
       >
-        <span className="text-sm font-medium">{selectedGenreName}</span>
-        <i className="ri-arrow-down-s-line"></i>
+        <span className="text-xs sm:text-sm font-medium truncate">{selectedGenreName}</span>
+        <i className="ri-arrow-down-s-line text-sm sm:text-base shrink-0"></i>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-zinc-800 border border-zinc-700 rounded-lg shadow-2xl z-50 max-h-96 overflow-y-auto no-scrollbar">
+        <div className="absolute right-0 mt-2 w-48 sm:w-56 bg-zinc-800 border border-zinc-700 rounded-lg shadow-2xl z-50 max-h-96 overflow-y-auto no-scrollbar">
           <div className="py-2 ">
             <button
               onClick={() => {

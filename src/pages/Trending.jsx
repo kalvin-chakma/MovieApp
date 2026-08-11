@@ -34,8 +34,8 @@ const Trending = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-screen bg-black pt-5">
-      <div className="lg:w-[70%] w-screen mx-auto">
+    <div className="min-h-screen w-full bg-black pt-5">
+      <div className="lg:w-[70%] w-full mx-auto">
         <div className="text-2xl md:text-4xl font-semibold text-gray-500 px-4 mb-4">
           Trending
         </div>
